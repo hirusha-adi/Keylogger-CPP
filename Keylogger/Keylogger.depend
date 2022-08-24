@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1661343502 source:e:\development\github\keylogger-cpp\keylogger\keylogger.cpp
+	<windows.h>
+	<winuser.h>
+	<stdio.h>
+	<stdbool.h>
+
