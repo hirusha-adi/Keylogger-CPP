@@ -1,3 +1,13 @@
+# Project Files
+Keylogger/bin/Debug/dat.txt
+Keylogger/bin/Debug/dat.txt
+Keylogger/Keylogger.layout
+Keylogger/Keylogger.depend
+*.depend
+*.layout
+
+
+
 # Prerequisites
 *.d
 
@@ -30,5 +40,3 @@
 *.exe
 *.out
 *.app
-bin/Debug/dat.txt
-Keylogger/bin/Debug/dat.txt
