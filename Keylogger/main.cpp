@@ -502,11 +502,6 @@ void powerdown(void)
     fclose(file);
 }
 
-char getFileName()
-{
-    return 'f';
-}
-
 int main(int argc, char* argv[])
 {
     int startKeyLogging(char* argv[]);
