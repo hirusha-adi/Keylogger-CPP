@@ -7,3 +7,9 @@
 	<iostream>
 	<fstream>
 
+1661342426 source:e:\development\github\keylogger-cpp\main.cpp
+	<windows.h>
+	<winuser.h>
+	<stdio.h>
+	<stdbool.h>
+
