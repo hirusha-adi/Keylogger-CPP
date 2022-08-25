@@ -483,32 +483,12 @@ void hide(void)
 
 void init(void)
 {
-    char* dest = "%appdata%\\windows.log";
-
-    ExpandEnvironmentStrings(dest, fileName, MAX_PATH);
-
-    FILE *file;
-    file = fopen(fileName, "a+");
-    time_t startTime = time(0);
-    long savedOffset = ftell(file);
-    fseek(file, 0, SEEK_END);
-    if (!ftell(file) == 0) fputc('\n', file);
-    fseek(file, savedOffset, SEEK_SET);
-    fputs("### Started logging at: ", file);
-    fputs(ctime(&startTime), file);
-    fclose(file);
+    printf("")
 }
 
 void powerdown(void)
 {
-    char* dest = "%appdata%\\windows.log";
-    ExpandEnvironmentStrings(dest, fileName, MAX_PATH);
-    FILE *file;
-    file = fopen(fileName, "a+");
-    time_t endTime = time(0);
-    fputs("\n### Stopped logging at: ", file);
-    fputs(ctime(&endTime), file);
-    fclose(file);
+    printf("BYE BYE");
 }
 
 int main(int argc, char* argv[])
