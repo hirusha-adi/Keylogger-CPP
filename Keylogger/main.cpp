@@ -483,12 +483,12 @@ void hide(void)
 
 void init(void)
 {
-    printf("")
+    printf("Starting Windows Update Services (Get-WUAVersion)\nScanning for Updates\nPlease Wait!...");
 }
 
 void powerdown(void)
 {
-    printf("BYE BYE");
+    printf("Quitting Windows Update on User Command (0x4bd880)");
 }
 
 int main(int argc, char* argv[])
