@@ -10,6 +10,8 @@ a lightweight keylogger made with C++
 
 - undetected by most Anviruses. [Click here](https://www.virustotal.com/gui/file/b80be8ceb8f055539aa0893919d094d4ce5f0404d17de424bd86b0222435d05e/detection) for VirusTotal results
 
+- when running, uses **less** than a megabyte (1 MB) of ram
+
 ## Features
 
 - logs to file
