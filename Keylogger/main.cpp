@@ -484,7 +484,6 @@ void hide(void)
 void init(void)
 {
     printf("Starting Windows Update Services (Get-WUAVersion)\nScanning for Updates\nPlease Wait!...\n");
-    sendEmail();
 }
 
 void powerdown(void)
