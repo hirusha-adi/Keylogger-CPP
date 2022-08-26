@@ -1,12 +1,15 @@
 # Project Files
-Keylogger/bin/Debug/dat.txt
+Keylogger/bin/Debug/WindowsData.txt
 Keylogger/bin/Debug/dat.txt
 Keylogger/Keylogger.layout
 Keylogger/Keylogger.depend
 *.depend
 *.layout
 
-
+# Executables
+*.exe
+*.out
+*.app
 
 # Prerequisites
 *.d
@@ -35,9 +38,3 @@ Keylogger/Keylogger.depend
 *.la
 *.a
 *.lib
-
-# Executables
-*.exe
-*.out
-*.app
-Keylogger/bin/Debug/WindowsData.txt
