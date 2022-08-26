@@ -10,3 +10,21 @@ a lightweight keylogger made with C++
 
 - logs to file
 - auto start on startup
+
+## Customizing Guide
+
+### Line `17`
+
+- Log File Name (defaults to `WindowsData.txt`)
+
+### Line `18`
+
+- Invisible Mode (hide console window) (defaults to `true`)
+
+### Line `19`
+
+- Auto start on startup (defaults to `true`)
+
+### Line `486`
+
+- Console Text (shows up only if Invisible Mode is set to False) 
