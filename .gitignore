@@ -1,9 +1,9 @@
 # Project Files
 .vscode/*
-Keylogger/bin/Debug/WindowsData.txt
-Keylogger/bin/Debug/dat.txt
-Keylogger/Keylogger.layout
-Keylogger/Keylogger.depend
+src/bin/Debug/WindowsData.txt
+src/bin/Debug/dat.txt
+src/Keylogger.layout
+src/Keylogger.depend
 *.depend
 *.layout
 
