@@ -17,6 +17,8 @@ a lightweight keylogger made with C++
 
 ## Customizing Guide
 
+for `main.cpp`
+
 ### Line `17`
 
 - Log File Name (defaults to `WindowsData.txt`)
