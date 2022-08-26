@@ -1,4 +1,5 @@
 # Project Files
+.vscode/*
 Keylogger/bin/Debug/WindowsData.txt
 Keylogger/bin/Debug/dat.txt
 Keylogger/Keylogger.layout
